@@ -77,14 +77,7 @@
             </ul>
         </section>
         <section>
-            <h1>RPC возможные архитектуры</h1>
-            <ul>
-                <li>SOA [service-oriented architecture]</li>
-                <li>CORBA [Common Object Request Broker Architecture]</li>
-            </ul>
-        </section>
-        <section>
-            <h1>RPC сеть</h1>
+            <h1>RPC протокол обмена</h1>
             <ul>
                 <li>TCP/UDP</li>
                 <li>HTTP(S) [хотя и не является транспортным уровнем ISO/OSI]</li>
@@ -93,7 +86,11 @@
         <section>
             <h1>RPC сериализаторы</h1>
             <ul>
-                <li>XML JSON</li>
+                <li>текстовый
+                    <ul><li>XML</li>
+                        <li>JSON</li>
+                    </ul>
+                </li>
                 <li>бинарный</li>
             </ul>
         </section>
@@ -135,19 +132,6 @@
             </ul>
         </section>
         <section>
-            <h1>Состав</h1>
-            <ul>
-                <li>Stub представление объекта</li>
-                <li>Sceleton представление Stub на стороне севера</li>
-                <li>RRL Remote Reference Layer</li>
-                <li>Транспортный слой</li>
-            </ul>
-        </section>
-        <section>
-            <h1>Схема</h1>
-            <img src="img/rmi_architecture.jpg" alt="rmi Схема"/>
-        </section>
-        <section>
             <h1>RMI интерфейс</h1>
             <pre style="width:auto;"><code data-trim class="java">
 import java.rmi.Remote;
@@ -155,8 +139,7 @@ import java.rmi.RemoteException;
 
 public interface RMIInterface extends Remote {
     String sayHello(String name) throws RemoteException;
-}
-            </code></pre>
+}</code></pre>
         </section>
         <section>
             <h1>RMI сервер</h1>
@@ -214,6 +197,14 @@ grant {
         </code></pre>
         </section>
         <section>
+            <h1>RMI и современность</h1>
+            <ul>
+                <li>JMX</li>
+                <li>jconsole</li>
+                <li>jvisualvm</li>
+            </ul>
+        </section>
+        <section>
             <h1>SOAP</h1>
             <h2>Simple Object Access Protocol</h2>
         </section>
@@ -230,15 +221,6 @@ grant {
                 <li>расширение XML-RPC</li>
                 <li>транспорт HTTP(S), SMTP, FTP, TCP, UDP</li>
                 <li>WSDL [Web Service Destribution Language]</li>
-            </ul>
-        </section>
-        <section>
-            <h1>SOAP виды</h1>
-            <ul>
-                <li>RPC/encoded</li>
-                <li>RPC/literal</li>
-                <li>Document/encoded</li>
-                <li>Document/literal</li>
             </ul>
         </section>
         <section>
@@ -267,7 +249,7 @@ grant {
     <method1>
       <x>5</x>
       <y>5.0</y>
-    </method1>
+    </method1>s
   </soap:body>
 </soap:envelope>
         </code></pre></td>
@@ -428,6 +410,85 @@ public class SOAPClientWSImport {
         </code></pre>
         </section>
         <section>
+            <h1>HTTP</h1>
+            <h3>HyperText Transfer Protocol</h3>
+            <h4>протокол передачи гипертекста</h4>
+        </section>
+        <section>
+            <h1>HTTP</h1>
+            <ul>
+                <li>протокол прикладного уровня</li>
+                <li>клиент-север, запрос-ответ</li>
+            </ul>
+        </section>
+        <section>
+            <h1>HTTP методы</h1>
+            <ul>
+                <li>GET</li>
+                <li>POST</li>
+                <li>PUT</li>
+                <li>DELETE</li>
+                <li>HEAD</li>
+                <li>OPTIONS</li>
+            </ul>
+        </section>
+        <section>
+            <h1>HTTP заголовки</h1>
+            <ul>
+                <li>Host</li>
+                <li>User-Agent</li>
+                <li>Accept</li>
+                <li>Content-Type</li>
+                <li>DoNotTrack</li>
+            </ul>
+        </section>
+        <section>
+            <h1>HTTP коды ответа</h1>
+            <ul>
+                <li>1xx - информационные</li>
+                <li>2xx - успешно</li>
+                <li>3xx - перенаправление</li>
+                <li>4xx - ошибка клиента</li>
+                <li>5xx - ошибка сервера</li>
+            </ul>    
+        </section>
+        <section>
+            <h1>HATEOAS</h1>
+            <h3>Hypermedia as the Engine of Application State</h3>
+            <ul>
+                <li>клиент обращается к фиксированному URL</li>
+                <li>клиент может ничего не знать о сервере, кроме входящего URL</li>
+            </ul>
+        </section>
+        <section>
+            <h1>HTTP запрос</h1>
+            <pre style="width:auto;"><code data-trim class="conf">
+GET /search?q=REST HTTP/2
+Host: www.google.com
+Accept-Encoding: deflate, gzip, br
+User-Agent: Mozilla/5.0 (X11; Fedora; Linux x86_64; rv:65.0) Gecko/20100101 Firefox/65.0
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8
+Accept-Language: ru-RU,ru;q=0.8,en-US;q=0.5,en;q=0.3
+Connection: keep-alive
+</code></pre>
+        </section>
+        <section>
+            <h1>HTTP ответ</h1>
+            <pre style="width:auto;"><code data-trim class="conf">
+HTTP/2 200 
+content-type: text/html; charset=UTF-8
+date: Tue, 12 Mar 2019 20:12:12 GMT
+expires: -1
+cache-control: private, max-age=0
+trailer: X-Google-GFE-Current-Request-Cost-From-GWS
+strict-transport-security: max-age=31536000
+content-encoding: br
+server: gws
+x-xss-protection: 1; mode=block
+x-frame-options: SAMEORIGIN
+</code></pre>
+        </section>
+        <section>
             <h1>REST</h1>
             <h3>Representational State Transfer</h3>
             <h4>передача состояния представления</h4>
@@ -477,14 +538,6 @@ public class SOAPClientWSImport {
             </table>
         </section>
         <section>
-            <h1>HATEOAS</h1>
-            <h3>Hypermedia as the Engine of Application State</h3>
-            <ul>
-                <li>клиент обращается к фиксированному URL</li>
-                <li>клиент может ничего не знать о сервере, кроме входящего URL</li>
-            </ul>
-        </section>
-        <section>
             <h1>REST и Java</h1>
             <ul>
                 <li>JAX-RS</li>
@@ -501,7 +554,7 @@ public class SOAPClientWSImport {
         </section>
         <section>
             <h1>JAX-RS аннотации</h1>
-            <ul class="linone">
+            <ul class="linone" style="color: #008000">
                 <li>@Path</li>
                 <li>@GET, @PUT, @POST, @DELETE, @HEAD</li>
                 <li>@Produces</li>
@@ -510,7 +563,7 @@ public class SOAPClientWSImport {
         </section>
         <section>
             <h1>JAX-RS аннотации</h1>
-            <ul class="linone">
+            <ul class="linone" style="color: #008000">
                 <li>@PathParam</li>
                 <li>@QueryParam</li>
                 <li>@HeaderParam</li>
@@ -522,14 +575,14 @@ public class SOAPClientWSImport {
         </section>
         <section>
             <h1>SpringFramework</h1>
-            <ul class="linone">
+            <ul class="linone" style="color: #008000">
                 <li>@RequestMapping</li>
                 <li>@GetMapping, @PostMapping, @PutMapping, @PatchMapping, @DeleteMapping</li>
             </ul>
         </section>
         <section>
             <h1></h1>
-            <ul class="linone">
+            <ul class="linone" style="color: #008000">
                 <li>@PathVariable</li>
                 <li>@RequestAttribute</li>
                 <li>@RequestBody</li>
@@ -553,7 +606,7 @@ public class JaxRsController {
       </code></pre>
         </section>
         <section>
-            <h1>Spring пример</h1>
+            <h1>Spring пример 1</h1>
             <pre style="width:auto;"><code data-trim class="java">
 @RestController
 @RequestMapping("/greetings")
@@ -565,6 +618,31 @@ public class SpringRestController {
         String greeting = "Hello " + name;
         return new ResponseEntity<>(greeting, HttpStatus.OK);
     }
+}
+      </code></pre>
+        </section>
+        <section>
+            <h1>Spring пример 2</h1>
+            <pre style="width:auto;"><code data-trim class="java">
+@RestController
+public class GreetingController {
+    @RequestMapping("/greeting")
+    public Greeting greeting(@RequestParam(value="name", defaultValue="World") String name) {
+        return new Greeting("Hello " + name);
+    }
+}
+      </code></pre>
+        </section>
+        <section>
+            <h1>Spring пример. Клиент</h1>
+            <pre style="width:auto;"><code data-trim class="java">
+public static void main(String... args) {
+    RestTemplate restTemplate = new RestTemplate();
+    String message = restTemplate.getForObject("http://localhost/greetings/Bob", Sting.class);
+    log.info(message);
+    Greeting greeting = restTemplate.getForObject("http://localhost/greeting?name=Bob", Greeting.class);
+    // {"message": "Hello Bob"}
+    log.info(greeting.getMessage());
 }
       </code></pre>
         </section>
@@ -604,7 +682,7 @@ public class SpringRestController {
             <h1>HTTP/2</h1>
             <ul>
                 <li>только HTTPS</li>
-                <li>одно соединение для всех файлов</li>
+                <li>одно соединение для всех запросов</li>
             </ul>
         </section>
         <section>
